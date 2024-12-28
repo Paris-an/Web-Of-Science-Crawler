@@ -1,3 +1,7 @@
 # Web-Of-Science-Crawler
-由于WOS对数据导出数量的限制（每次1000条），针对大规模导出数据需求，需要借助爬虫类程序。
-本程序可根据检索条件指定数据源链接后，批量化下载WOS元数据。
+Due to the limitation of WOS on the number of data to be exported (1,000 records at a time), crawler programs are needed to meet the needs of large-scale data export. 
+This program can download WOS metadata in batches after specifying the data source link according to the search conditions.
+install selenium and webdriver-manager
+
+>pip install selenium
+>pip install webdriver-manager
