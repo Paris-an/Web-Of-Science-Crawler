@@ -36,9 +36,11 @@ options.add_experimental_option('excludeSwitches', ['enable-logging'])
 options.add_argument('--disable-blink-features=AutomationControlled')  # 防止webdriver属性被检测
 options.add_experimental_option('useAutomationExtension', False)
 options.add_argument('--disable-infobars')
+options.add_argument("user-data-dir=C:/Users/User/AppData/Local/Google/Chrome/User Data") #add chrome profile for authentication easiness, change this acording to your chrome profile directory!
+
 
 #-----------------------------《参数调整区域》----------------------------------------#
-totalDocumentNumber=12345 #预先指定爬取数量
+totalDocumentNumber=12345 #预先指定爬取数量 , max 100000 it seems...
 
 url="https://webofscience.clarivate.cn/wos/woscc/summary/XXXXXXXXXXX/relevance/1"#获取数据的URL，请先检索出想要的数据再复制检索结果页面的url粘贴到这里
 
@@ -90,6 +92,7 @@ try:
     for currentBatch in range(startBatchNum,downloadBatchNum):
         #导出不同的batch时，每次都再刷新一下
         # driver.get(url+"(overlay:export/ext)")  #设置导出为(Tab Delimited File)TXT格式
+        #driver.get(url + "(overlay:export/exbt)")  # Set to export as bibtex format
         driver.get(url + "(overlay:export/exc)")  #设置导出为EXCEL格式
         sleepTime=random.sample(range(15,21),1)
         print("休眠" + str(sleepTime[0]) + "秒! 等待刷新结果显示!")
@@ -149,6 +152,8 @@ try:
         inputElements_2[1].clear()
         inputElements_2[1].send_keys(str(EndNum))
         closeButtonElements_1 = driver.find_elements(By.XPATH, "//button[@class='_pendo-close-guide']")
+        print("Sleeping for 2 seconds! Waiting for download button ready!") # i think sometimes button not ready and it throws an error not downloading 
+        sleep(2)
         if len(closeButtonElements_1) > 0:
             closeButtonElements_1[0].click()
         #点击记录内容下拉框
